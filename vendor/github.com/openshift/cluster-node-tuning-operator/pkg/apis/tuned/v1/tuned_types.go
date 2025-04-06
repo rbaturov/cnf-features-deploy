@@ -20,16 +20,21 @@ const (
 	TunedClusterOperatorResourceName = "node-tuning"
 
 	// Name of the NTO operand for versioning in ClusterOperator.
-	TunedOperandName = "openshift-tuned"
+	TunedOperandName = "ocp-tuned"
 
 	// TunedBootcmdlineAnnotationKey is a Node-specific annotation denoting kernel command-line parameters
 	// calculated by TuneD for the current profile applied to that Node.
 	TunedBootcmdlineAnnotationKey string = "tuned.openshift.io/bootcmdline"
+
+	// TunedDeferredUpdate request the tuned daemons to defer the update of the rendered profile
+	// until the next restart.
+	TunedDeferredUpdate string = "tuned.openshift.io/deferred"
 )
 
 /////////////////////////////////////////////////////////////////////////////////
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 // Tuned is a collection of rules that allows cluster-wide deployment
 // of node-level sysctls and more flexibility to add custom tuning
@@ -113,6 +118,10 @@ type OperandConfig struct {
 	// +optional
 	Debug bool `json:"debug,omitempty"`
 
+	// klog logging verbosity
+	// +optional
+	Verbosity int `json:"verbosity,omitempty"`
+
 	// +optional
 	TuneDConfig TuneDConfig `json:"tunedConfig,omitempty"`
 }
@@ -126,7 +135,17 @@ type TuneDConfig struct {
 
 // TunedStatus is the status for a Tuned resource.
 type TunedStatus struct {
+	// conditions represents the state of the Tuned profile
+	// +patchMergeKey=type
+	// +patchStrategy=merge
+	// +optional
+	Conditions []StatusCondition `json:"conditions,omitempty"  patchStrategy:"merge" patchMergeKey:"type"`
 }
+
+const (
+	// Tuned CR was validated and no problems with it were found.
+	TunedValid ConditionType = "Valid"
+)
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
@@ -153,6 +172,9 @@ type Profile struct {
 
 type ProfileSpec struct {
 	Config ProfileConfig `json:"config"`
+	// Tuned profiles.
+	// +optional
+	Profile []TunedProfile `json:"profile"`
 }
 
 type ProfileConfig struct {
@@ -161,6 +183,9 @@ type ProfileConfig struct {
 	// option to debug TuneD daemon execution
 	// +optional
 	Debug bool `json:"debug"`
+	// klog logging verbosity
+	// +optional
+	Verbosity int `json:"verbosity"`
 	// +optional
 	TuneDConfig TuneDConfig `json:"tunedConfig,omitempty"`
 	// Name of the cloud provider as taken from the Node providerID: <ProviderName>://<ProviderSpecificNodeID>
@@ -178,16 +203,20 @@ type ProfileStatus struct {
 	// +patchMergeKey=type
 	// +patchStrategy=merge
 	// +optional
-	Conditions []ProfileStatusCondition `json:"conditions,omitempty"  patchStrategy:"merge" patchMergeKey:"type"`
+	Conditions []StatusCondition `json:"conditions,omitempty"  patchStrategy:"merge" patchMergeKey:"type"`
+
+	// If set, this represents the .metadata.generation that the conditions were set based upon.
+	// +optional
+	ObservedGeneration int64 `json:"observedGeneration,omitempty" protobuf:"varint,1,opt,name=observedGeneration"`
 }
 
-// ProfileStatusCondition represents a partial state of the per-node Profile application.
+// StatusCondition represents a partial state of the per-node Profile application.
 // +k8s:deepcopy-gen=true
-type ProfileStatusCondition struct {
+type StatusCondition struct {
 	// type specifies the aspect reported by this condition.
 	// +kubebuilder:validation:Required
 	// +required
-	Type ProfileConditionType `json:"type"`
+	Type ConditionType `json:"type"`
 
 	// status of the condition, one of True, False, Unknown.
 	// +kubebuilder:validation:Required
@@ -209,18 +238,18 @@ type ProfileStatusCondition struct {
 	Message string `json:"message,omitempty"`
 }
 
-// ProfileConditionType is an aspect of Tuned daemon profile application state.
-type ProfileConditionType string
+// ConditionType is an aspect of Tuned daemon profile application state.
+type ConditionType string
 
 const (
 	// ProfileApplied indicates that the Tuned daemon has successfully applied
 	// the selected profile.
-	TunedProfileApplied ProfileConditionType = "Applied"
+	TunedProfileApplied ConditionType = "Applied"
 
 	// TunedDegraded indicates the Tuned daemon issued errors during profile
 	// application.  To conclude the profile application was successful,
 	// both TunedProfileApplied and TunedDegraded need to be queried.
-	TunedDegraded ProfileConditionType = "Degraded"
+	TunedDegraded ConditionType = "Degraded"
 )
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
