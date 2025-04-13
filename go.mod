@@ -33,7 +33,7 @@ require (
 	github.com/openshift/api v0.0.0-20230807121159-a81c3efc8824
 	github.com/openshift/client-go v0.0.0-20230807132528-be5346fb33cb
 	github.com/openshift/cluster-nfd-operator v0.0.0-00010101000000-000000000000
-	github.com/openshift/cluster-node-tuning-operator v0.0.0-00010101000000-000000000000
+	github.com/openshift/cluster-node-tuning-operator 4c4f38d78802
 	github.com/openshift/machine-config-operator v0.0.1-0.20230807154212-886c5c3fc7a9
 	github.com/openshift/ptp-operator v0.0.0-00010101000000-000000000000
 	github.com/stretchr/testify v1.10.0
@@ -205,7 +205,7 @@ replace (
 	github.com/nmstate/kubernetes-nmstate/api => github.com/openshift/kubernetes-nmstate/api v0.0.0-20240726065608-fbf9eb6f75e6
 	github.com/openshift-psap/special-resource-operator => github.com/openshift/special-resource-operator v0.0.0-20211202035230-4c86f99c426b // release-4.10
 	github.com/openshift/cluster-nfd-operator => github.com/openshift/cluster-nfd-operator v0.0.0-20240125121050-830c889e311e // release-4.9
-	github.com/openshift/cluster-node-tuning-operator => github.com/openshift/cluster-node-tuning-operator v0.0.0-20231204115124-e9fa8996e6b2 // release-4.14
+	github.com/openshift/cluster-node-tuning-operator => github.com/openshift/cluster-node-tuning-operator 4c4f38d78802 // release-4.14
 	github.com/openshift/ptp-operator => github.com/openshift/ptp-operator v0.0.0-20230831212656-4b8be2662cfe // release-4.14
 )
 
