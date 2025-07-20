@@ -73,8 +73,8 @@ github.com/monochromegane/go-gitignore
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
-# github.com/stretchr/testify v1.8.4
-## explicit; go 1.20
+# github.com/stretchr/testify v1.10.0
+## explicit; go 1.17
 # github.com/xlab/treeprint v1.2.0
 ## explicit; go 1.13
 github.com/xlab/treeprint
