@@ -7,8 +7,7 @@ module github.com/openshift-kni/cnf-features-deploy
 //   - openshift-ci/Dockerfile*
 //   - ztp/resource-generator/Containerfile
 //   - ztp/tools/pgt2acmpg/go.mod
-go 1.22
-toolchain go1.22.5
+go 1.23
 
 require (
 	github.com/coreos/go-systemd v0.0.0-20190719114852-fd7a80b32e1f
@@ -69,7 +68,7 @@ require (
 	github.com/coreos/fcct v0.5.0 // indirect
 	github.com/coreos/go-json v0.0.0-20230131223807-18775e0fb4fb // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
-	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
+	github.com/coreos/go-systemd/v22 v22.6.0 // indirect
 	github.com/coreos/ign-converter v0.0.0-20230417193809-cee89ea7d8ff // indirect
 	github.com/coreos/ignition/v2 v2.15.0 // indirect
 	github.com/coreos/vcontext v0.0.0-20230201181013-d72178a18687 // indirect
