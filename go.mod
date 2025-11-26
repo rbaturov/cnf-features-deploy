@@ -7,7 +7,8 @@ module github.com/openshift-kni/cnf-features-deploy
 //   - openshift-ci/Dockerfile*
 //   - ztp/resource-generator/Containerfile
 //   - ztp/tools/pgt2acmpg/go.mod
-go 1.22
+go 1.22.0
+
 toolchain go1.22.5
 
 require (
@@ -121,7 +122,7 @@ require (
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.8.1 // indirect
-	github.com/spf13/pflag v1.0.6-0.20210604193023-d5e0c0615ace // indirect
+	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/stoewer/go-strcase v1.2.0 // indirect
 	github.com/vincent-petithory/dataurl v1.0.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
