@@ -1,7 +1,7 @@
 module github.com/openshift-kni/cnf-features-deploy/ztp/tools/pgt2acmpg
 
 // this should match the version in the parent go.mod
-go 1.22
+go 1.23
 
 // Pinned to kubernetes-1.27.4
 replace k8s.io/apimachinery => k8s.io/apimachinery v0.27.4
@@ -49,6 +49,6 @@ require (
 	k8s.io/klog/v2 v2.110.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20231010175941-2dd684a91f00 // indirect
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b // indirect
-	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
+	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 )
