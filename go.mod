@@ -7,7 +7,8 @@ module github.com/openshift-kni/cnf-features-deploy
 //   - openshift-ci/Dockerfile*
 //   - ztp/resource-generator/Containerfile
 //   - ztp/tools/pgt2acmpg/go.mod
-go 1.22
+go 1.22.0
+
 toolchain go1.22.5
 
 require (
@@ -227,7 +228,7 @@ replace (
 	//    	k8s.io/endpointslice@v0.0.0: reading k8s.io/endpointslice/go.mod at revision v0.0.0: unknown revision v0.0.0
 	//
 	// See https://github.com/microsoft/hcsshim/pull/783
-	github.com/Microsoft/hcsshim => github.com/Microsoft/hcsshim v0.8.8
+	github.com/Microsoft/hcsshim => github.com/Microsoft/hcsshim v0.13.0
 
 	github.com/openshift/machine-config-operator => github.com/openshift/machine-config-operator v0.0.1-0.20230811181556-63d7be1ef18b
 )

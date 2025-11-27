@@ -1404,5 +1404,5 @@ sigs.k8s.io/yaml/goyaml.v2
 # github.com/openshift/cluster-nfd-operator => github.com/openshift/cluster-nfd-operator v0.0.0-20240125121050-830c889e311e
 # github.com/openshift/cluster-node-tuning-operator => github.com/openshift/cluster-node-tuning-operator v0.0.0-20231204115124-e9fa8996e6b2
 # github.com/openshift/ptp-operator => github.com/openshift/ptp-operator v0.0.0-20230831212656-4b8be2662cfe
-# github.com/Microsoft/hcsshim => github.com/Microsoft/hcsshim v0.8.8
+# github.com/Microsoft/hcsshim => github.com/Microsoft/hcsshim v0.13.0
 # github.com/openshift/machine-config-operator => github.com/openshift/machine-config-operator v0.0.1-0.20230811181556-63d7be1ef18b
