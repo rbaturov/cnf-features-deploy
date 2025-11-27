@@ -7,7 +7,8 @@ module github.com/openshift-kni/cnf-features-deploy
 //   - openshift-ci/Dockerfile*
 //   - ztp/resource-generator/Containerfile
 //   - ztp/tools/pgt2acmpg/go.mod
-go 1.22
+go 1.22.0
+
 toolchain go1.22.5
 
 require (
@@ -117,7 +118,7 @@ require (
 	github.com/prometheus/common v0.45.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/robfig/cron v1.2.0 // indirect
-	github.com/shopspring/decimal v1.3.1 // indirect
+	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.8.1 // indirect
