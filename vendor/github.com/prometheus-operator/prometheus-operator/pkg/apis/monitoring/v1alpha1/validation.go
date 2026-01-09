@@ -61,6 +61,10 @@ func (hc *HTTPConfig) Validate() error {
 		}
 	}
 
+	if err := hc.ProxyConfig.Validate(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -183,12 +187,12 @@ func (yr YearRange) Parse() (*ParsedRange, error) {
 
 	start, err := strconv.Atoi(startStr)
 	if err != nil {
-		fmt.Errorf("start year cannot be %s parsed: %w", startStr, err)
+		return nil, fmt.Errorf("start year cannot be %s parsed: %w", startStr, err)
 	}
 
 	end, err := strconv.Atoi(endStr)
 	if err != nil {
-		fmt.Errorf("end year cannot be %s parsed: %w", endStr, err)
+		return nil, fmt.Errorf("end year cannot be %s parsed: %w", endStr, err)
 	}
 
 	if start > end {
@@ -221,16 +225,16 @@ func (w Weekday) Int() (int, error) {
 func (m Month) Int() (int, error) {
 	normaliseMonth := Month(strings.ToLower(string(m)))
 
-	day, found := months[normaliseMonth]
+	month, found := months[normaliseMonth]
 	if !found {
 		i, err := strconv.Atoi(string(normaliseMonth))
-		if err != nil {
-			return day, fmt.Errorf("%s is an invalid month", m)
+		if err != nil || i < 1 || i > 12 {
+			return month, fmt.Errorf("%s is an invalid month", m)
 		}
-		day = i
+		month = i
 	}
 
-	return day, nil
+	return month, nil
 }
 
 // Validate the DayOfMonthRange
@@ -300,14 +304,18 @@ func (mr MonthRange) Parse() (*ParsedRange, error) {
 // ParsedRange is an integer representation of a range
 // +kubebuilder:object:generate:=false
 type ParsedRange struct {
-	// Start is the beginning of the range
+	// start defines the beginning of the range
+	// +optional
 	Start int `json:"start,omitempty"`
-	// End of the range
+	// end defines the end of the range
+	// +optional
 	End int `json:"end,omitempty"`
 }
 
-var validTime = "^((([01][0-9])|(2[0-3])):[0-5][0-9])$|(^24:00$)"
-var validTimeRE = regexp.MustCompile(validTime)
+var (
+	validTime   = "^((([01][0-9])|(2[0-3])):[0-5][0-9])$|(^24:00$)"
+	validTimeRE = regexp.MustCompile(validTime)
+)
 
 // Converts a string of the form "HH:MM" into the number of minutes elapsed in the day.
 func parseTime(in string) (mins int, err error) {
