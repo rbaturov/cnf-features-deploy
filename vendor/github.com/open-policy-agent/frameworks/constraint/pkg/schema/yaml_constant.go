@@ -7,8 +7,7 @@ const constraintTemplateCRDYaml = `apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.11.3
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: constrainttemplates.templates.gatekeeper.sh
 spec:
   group: templates.gatekeeper.sh
@@ -17,7 +16,6 @@ spec:
     listKind: ConstraintTemplateList
     plural: constrainttemplates
     singular: constrainttemplate
-  preserveUnknownFields: false
   scope: Cluster
   versions:
   - name: v1
@@ -27,14 +25,19 @@ spec:
           API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
@@ -42,10 +45,15 @@ spec:
             description: ConstraintTemplateSpec defines the desired state of ConstraintTemplate.
             properties:
               crd:
+                description: CRD defines the custom resource definition specification
+                  for the constraint.
                 properties:
                   spec:
+                    description: CRDSpec defines the spec for the CRD.
                     properties:
                       names:
+                        description: Names defines the naming conventions for the
+                          constraint kind.
                         properties:
                           kind:
                             type: string
@@ -57,6 +65,8 @@ spec:
                       validation:
                         default:
                           legacySchema: false
+                        description: Validation defines the schema for constraint
+                          parameters.
                         properties:
                           legacySchema:
                             default: false
@@ -69,12 +79,16 @@ spec:
                 type: object
               targets:
                 items:
+                  description: Target defines the target handler and policy for the
+                    constraint template.
                   properties:
                     code:
-                      description: The source code options for the constraint template.
-                        "Rego" can only be specified in one place (either here or
-                        in the "rego" field)
+                      description: |-
+                        The source code options for the constraint template. "Rego" can only
+                        be specified in one place (either here or in the "rego" field)
                       items:
+                        description: Code defines the policy source code for a specific
+                          engine.
                         properties:
                           engine:
                             description: 'The engine used to evaluate the code. Example:
@@ -95,6 +109,17 @@ spec:
                       items:
                         type: string
                       type: array
+                    operations:
+                      items:
+                        description: OperationType specifies an operation for a request.
+                        enum:
+                        - '*'
+                        - CREATE
+                        - DELETE
+                        - UPDATE
+                        - CONNECT
+                        type: string
+                      type: array
                     rego:
                       type: string
                     target:
@@ -107,8 +132,9 @@ spec:
             properties:
               byPod:
                 items:
-                  description: ByPodStatus defines the observed state of ConstraintTemplate
-                    as seen by an individual controller
+                  description: |-
+                    ByPodStatus defines the observed state of ConstraintTemplate as seen by
+                    an individual controller
                   properties:
                     errors:
                       items:
@@ -151,14 +177,19 @@ spec:
           API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
@@ -166,10 +197,15 @@ spec:
             description: ConstraintTemplateSpec defines the desired state of ConstraintTemplate.
             properties:
               crd:
+                description: CRD defines the custom resource definition specification
+                  for the constraint.
                 properties:
                   spec:
+                    description: CRDSpec defines the spec for the CRD.
                     properties:
                       names:
+                        description: Names defines the naming conventions for the
+                          constraint kind.
                         properties:
                           kind:
                             type: string
@@ -181,6 +217,8 @@ spec:
                       validation:
                         default:
                           legacySchema: true
+                        description: Validation defines the schema for constraint
+                          parameters.
                         properties:
                           legacySchema:
                             default: true
@@ -193,12 +231,16 @@ spec:
                 type: object
               targets:
                 items:
+                  description: Target defines the target handler and policy for the
+                    constraint template.
                   properties:
                     code:
-                      description: The source code options for the constraint template.
-                        "Rego" can only be specified in one place (either here or
-                        in the "rego" field)
+                      description: |-
+                        The source code options for the constraint template. "Rego" can only
+                        be specified in one place (either here or in the "rego" field)
                       items:
+                        description: Code defines the policy source code for a specific
+                          engine.
                         properties:
                           engine:
                             description: 'The engine used to evaluate the code. Example:
@@ -219,6 +261,17 @@ spec:
                       items:
                         type: string
                       type: array
+                    operations:
+                      enum:
+                      - '*'
+                      - CREATE
+                      - DELETE
+                      - UPDATE
+                      - CONNECT
+                      items:
+                        description: OperationType specifies an operation for a request.
+                        type: string
+                      type: array
                     rego:
                       type: string
                     target:
@@ -231,8 +284,9 @@ spec:
             properties:
               byPod:
                 items:
-                  description: ByPodStatus defines the observed state of ConstraintTemplate
-                    as seen by an individual controller
+                  description: |-
+                    ByPodStatus defines the observed state of ConstraintTemplate as seen by
+                    an individual controller
                   properties:
                     errors:
                       items:
@@ -275,14 +329,19 @@ spec:
           API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
@@ -290,10 +349,15 @@ spec:
             description: ConstraintTemplateSpec defines the desired state of ConstraintTemplate.
             properties:
               crd:
+                description: CRD defines the custom resource definition specification
+                  for the constraint.
                 properties:
                   spec:
+                    description: CRDSpec defines the spec for the CRD.
                     properties:
                       names:
+                        description: Names defines the naming conventions for the
+                          constraint kind.
                         properties:
                           kind:
                             type: string
@@ -305,6 +369,8 @@ spec:
                       validation:
                         default:
                           legacySchema: true
+                        description: Validation defines the schema for constraint
+                          parameters.
                         properties:
                           legacySchema:
                             default: true
@@ -317,12 +383,16 @@ spec:
                 type: object
               targets:
                 items:
+                  description: Target defines the target handler and policy for the
+                    constraint template.
                   properties:
                     code:
-                      description: The source code options for the constraint template.
-                        "Rego" can only be specified in one place (either here or
-                        in the "rego" field)
+                      description: |-
+                        The source code options for the constraint template. "Rego" can only
+                        be specified in one place (either here or in the "rego" field)
                       items:
+                        description: Code defines the policy source code for a specific
+                          engine.
                         properties:
                           engine:
                             description: 'The engine used to evaluate the code. Example:
@@ -343,6 +413,17 @@ spec:
                       items:
                         type: string
                       type: array
+                    operations:
+                      items:
+                        description: OperationType specifies an operation for a request.
+                        enum:
+                        - '*'
+                        - CREATE
+                        - DELETE
+                        - UPDATE
+                        - CONNECT
+                        type: string
+                      type: array
                     rego:
                       type: string
                     target:
@@ -355,8 +436,9 @@ spec:
             properties:
               byPod:
                 items:
-                  description: ByPodStatus defines the observed state of ConstraintTemplate
-                    as seen by an individual controller
+                  description: |-
+                    ByPodStatus defines the observed state of ConstraintTemplate as seen by
+                    an individual controller
                   properties:
                     errors:
                       items:
